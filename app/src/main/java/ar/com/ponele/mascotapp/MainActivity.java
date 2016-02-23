@@ -1,7 +1,7 @@
 package ar.com.ponele.mascotapp;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,7 +11,7 @@ import com.firebase.client.Firebase;
 import ar.com.ponele.mascotapp.dto.CardDTO;
 import ar.com.ponele.mascotapp.utils.Constants;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private TextView name;
     private TextView prof;
