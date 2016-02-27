@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView name;
     private TextView prof;
     private TextView number;
-    private Button button;
 
     private Firebase baseRef;
 
@@ -33,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
         name = (TextView) findViewById(R.id.editText);
         prof = (TextView) findViewById(R.id.editText2);
         number = (TextView) findViewById(R.id.editText3);
-        button = (Button) findViewById(R.id.button);
 
         baseRef = new Firebase(Constants.FIREBASE_URL + "losts");
 
+        final Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mascotapp</string>
+    <string name="app_splash">Cargando</string>
+    <string name="action_settings">Configuración</string>
+    <string name="filter_app_name">Principal view</string>
+</resources>
