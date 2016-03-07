@@ -3,4 +3,6 @@
     <string name="app_name">Mascotapp</string>
     <string name="action_settings">Settings</string>
     <string name="filter_app_name">Principal view</string>
+    <string name="connectionFails">You must enable your data connection</string>
+    <string name="connectionFailsTitle">Connection fails</string>
 </resources>

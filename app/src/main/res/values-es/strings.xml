@@ -4,4 +4,6 @@
     <string name="app_splash">Cargando</string>
     <string name="action_settings">Configuración</string>
     <string name="filter_app_name">Principal view</string>
+    <string name="connectionFails">Debe habilitar la conexión de datos</string>
+    <string name="connectionFailsTitle">Conexión fallida</string>
 </resources>

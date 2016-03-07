@@ -1,48 +1,88 @@
 package ar.com.ponele.mascotapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
-public class SplashActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    private static final int SECONDS =3;
-    private static final int DELAY =2;
-    private static final int MILLIS = 1000;
+import ar.com.ponele.mascotapp.dto.util.AlertMessage;
+import ar.com.ponele.mascotapp.task.CheckTask;
+import ar.com.ponele.mascotapp.task.ConnectionCheckTask;
+
+public class SplashActivity extends AppCompatActivity {
 
     private ProgressBar pbProgress;
+    private List<CheckTask> checks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        getSupportActionBar().hide();
+
+
+        checks = new ArrayList<>();
+        checks.add(new ConnectionCheckTask(this));
 
         this.pbProgress = (ProgressBar) findViewById(R.id.pbProgress);
-        this.pbProgress.setMax(SECONDS - DELAY);
-        this.startAnimation();
+        this.pbProgress.setMax(checks.size());
     }
 
-    private void startAnimation() {
-        new CountDownTimer(SECONDS * MILLIS, MILLIS) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        final SplashActivity self = this;
+        new AsyncTask<CheckTask, Integer, AlertMessage>() {
+
             @Override
-            public void onTick(long millisUntilFinished) {
-                int progress = SplashActivity.this.getProgress(millisUntilFinished);
-                pbProgress.setProgress(progress);
+            protected void onProgressUpdate(Integer... values) {
+                self.pbProgress.incrementProgressBy(values[0]);
             }
 
             @Override
-            public void onFinish() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            protected void onCancelled(AlertMessage alert) {
+                new AlertDialog.Builder(self)
+                        .setTitle(alert.getTitleId())
+                        .setMessage(alert.getMessageId())
+                        .setCancelable(false)
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                self.finish();
+                            }
+                        }).create().show();
+            }
+
+            @Override
+            protected AlertMessage doInBackground(CheckTask... tasks) {
+                AlertMessage message = null;
+                for(CheckTask task: tasks) {
+                    if (task.isValid()) {
+                        this.publishProgress(1);
+                    } else {
+                        message = task.getAlertMessage();
+                        this.cancel(true);
+                    }
+                }
+
+                return message;
+            }
+
+            @Override
+            protected void onPostExecute(AlertMessage aVoid) {
+                final Intent intent = new Intent(self, MainActivity.class);
                 startActivity(intent);
-                finish();
+                self.finish();
+                super.onPostExecute(aVoid);
             }
-        }.start();
+        }.execute(this.checks.toArray(new CheckTask[this.checks.size()]));
+
     }
 
-    private int getProgress(long ms) {
-        return (int)((SECONDS * MILLIS)-ms)/MILLIS;
-    }
 }

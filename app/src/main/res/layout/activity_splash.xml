@@ -4,13 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_vertical_margin"
-    tools:context="ar.com.ponele.mascotapp.SplashActivity">
-
+    tools:context=".SplashActivity">
 
     <ProgressBar
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pbProgress"
+        android:indeterminate="false"
+        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+        android:max="20"
+        android:progress="0"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
