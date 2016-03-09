@@ -29,4 +29,9 @@ public class CardDTO {
     public String getNumber() {
         return number;
     }
+
+    @Override
+    public String toString() {
+        return name + " " + prof + " " + number;
+    }
 }
