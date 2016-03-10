@@ -1,37 +1,54 @@
 package ar.com.ponele.mascotapp.dto;
 
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
+@DynamoDBTable(tableName = "losts")
 public class CardDTO {
+    private String pkey;
     private String name;
-    private String prof;
-    private String number;
+    private String phone;
+    private String type;
+
+    @DynamoDBHashKey(attributeName = "pkey")
+    public String getPkey() {
+        return pkey;
+    }
+
+    public void setPkey(String pkey) {
+        this.pkey = pkey;
+    }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    @DynamoDBAttribute(attributeName = "name")
     public String getName() {
         return name;
     }
 
-    public void setProf(String prof) {
-        this.prof = prof;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getProf() {
-        return prof;
+    @DynamoDBAttribute(attributeName = "phone")
+    public String getPhone() {
+        return phone;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getNumber() {
-        return number;
+    @DynamoDBAttribute(attributeName = "type")
+    public String getType() {
+        return type;
     }
 
     @Override
     public String toString() {
-        return name + " " + prof + " " + number;
+        return name + " " + phone + " " + type;
     }
 }
