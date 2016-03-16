@@ -4,20 +4,20 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribut
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
-@DynamoDBTable(tableName = "losts")
+@DynamoDBTable(tableName = "Losts")
 public class CardDTO {
     private String pkey;
     private String name;
     private String phone;
     private String type;
 
+    public void setPkey(String pkey) {
+        this.pkey = pkey;
+    }
+
     @DynamoDBHashKey(attributeName = "pkey")
     public String getPkey() {
         return pkey;
-    }
-
-    public void setPkey(String pkey) {
-        this.pkey = pkey;
     }
 
     public void setName(String name) {

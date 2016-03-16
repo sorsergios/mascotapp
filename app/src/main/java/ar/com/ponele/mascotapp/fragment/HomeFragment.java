@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsyncClient;
 
 import ar.com.ponele.mascotapp.R;
 import ar.com.ponele.mascotapp.dto.CardDTO;
@@ -55,14 +56,13 @@ public class HomeFragment extends Fragment {
         prof = (TextView) view.findViewById(R.id.editText2);
         number = (TextView) view.findViewById(R.id.editText3);
 
+        // Initialize the Amazon Cognito credentials provider
         final CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getActivity().getApplicationContext(),
-                "policygen-Cognito_mascotappUnauth_Role-201603092232", // Identity Pool ID
+                this.getActivity().getApplicationContext(),
+                "ap-northeast-1:ab39b2b8-105e-48f2-9a41-c66d0a5b64c5", // Identity Pool ID
                 Regions.AP_NORTHEAST_1 // Region
         );
 
-        final AmazonDynamoDBClient ddbClient = new AmazonDynamoDBClient(credentialsProvider);
-        final DynamoDBMapper mapper = new DynamoDBMapper(ddbClient);
 
         final HomeFragment self = this;
         final Button button = (Button) view.findViewById(R.id.button);
@@ -78,7 +78,10 @@ public class HomeFragment extends Fragment {
                 new Thread(new Runnable(){
                     @Override
                     public void run() {
-                        // mapper.save(card);
+                        final AmazonDynamoDBAsyncClient ddbClient = new AmazonDynamoDBAsyncClient(credentialsProvider);
+                        ddbClient.setRegion(Region.getRegion(Regions.AP_NORTHEAST_1));
+                        final DynamoDBMapper mapper = new DynamoDBMapper(ddbClient);
+                        mapper.save(card);
                     }
                 }).start();
                 Snackbar.make(self.getActivity().findViewById(R.id.mainLayout), card.toString(), Snackbar.LENGTH_SHORT)
