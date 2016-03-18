@@ -3,19 +3,17 @@ package ar.com.ponele.mascotapp.fragment;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsyncClient;
 
 import ar.com.ponele.mascotapp.R;
+import ar.com.ponele.mascotapp.amazon.AmazonConnector;
 import ar.com.ponele.mascotapp.dto.CardDTO;
 
 public class HomeFragment extends Fragment {
@@ -56,15 +54,8 @@ public class HomeFragment extends Fragment {
         prof = (TextView) view.findViewById(R.id.editText2);
         number = (TextView) view.findViewById(R.id.editText3);
 
-        // Initialize the Amazon Cognito credentials provider
-        final CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                this.getActivity().getApplicationContext(),
-                "ap-northeast-1:ab39b2b8-105e-48f2-9a41-c66d0a5b64c5", // Identity Pool ID
-                Regions.AP_NORTHEAST_1 // Region
-        );
-
-
-        final HomeFragment self = this;
+        final FragmentActivity self = this.getActivity();
+        final DynamoDBMapper mapper = AmazonConnector.createDynamoDBMapper(self);
         final Button button = (Button) view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,13 +69,10 @@ public class HomeFragment extends Fragment {
                 new Thread(new Runnable(){
                     @Override
                     public void run() {
-                        final AmazonDynamoDBAsyncClient ddbClient = new AmazonDynamoDBAsyncClient(credentialsProvider);
-                        ddbClient.setRegion(Region.getRegion(Regions.AP_NORTHEAST_1));
-                        final DynamoDBMapper mapper = new DynamoDBMapper(ddbClient);
                         mapper.save(card);
                     }
                 }).start();
-                Snackbar.make(self.getActivity().findViewById(R.id.mainLayout), card.toString(), Snackbar.LENGTH_SHORT)
+                Snackbar.make(self.findViewById(R.id.mainLayout), card.toString(), Snackbar.LENGTH_SHORT)
                         .show(); // Don’t forget to show!
             }
         });
