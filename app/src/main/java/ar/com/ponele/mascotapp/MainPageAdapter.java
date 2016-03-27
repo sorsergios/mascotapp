@@ -1,4 +1,4 @@
-package ar.com.ponele.mascotapp.adapter;
+package ar.com.ponele.mascotapp;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

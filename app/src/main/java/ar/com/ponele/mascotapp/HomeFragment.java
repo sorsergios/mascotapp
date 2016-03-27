@@ -1,4 +1,4 @@
-package ar.com.ponele.mascotapp.fragment;
+package ar.com.ponele.mascotapp;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 
-import ar.com.ponele.mascotapp.R;
 import ar.com.ponele.mascotapp.amazon.AmazonConnector;
 import ar.com.ponele.mascotapp.dto.CardDTO;
 
