@@ -21,10 +21,10 @@
             android:id="@+id/mainToolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
+            android:background="@color/colorPrimary"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/accent"
+            app:tabSelectedTextColor="@color/colorAccent"
             app:tabTextColor="@android:color/secondary_text_light_nodisable"/>
     </android.support.design.widget.AppBarLayout>
 

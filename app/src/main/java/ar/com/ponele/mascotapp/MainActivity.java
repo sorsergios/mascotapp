@@ -4,13 +4,20 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import ar.com.ponele.mascotapp.found.ui.FoundListFragment;
+import ar.com.ponele.mascotapp.lost.ui.LostListFragment;
+import ar.com.ponele.mascotapp.myaccount.MyAccountOptionsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+
+    private static Integer POSITION_TAB_HOME = 0;
+    private static Integer POSITION_TAB_LOST = 1;
+    private static Integer POSITION_TAB_FOUND = 2;
+    private static Integer POSITION_TAB_ACCOUNT = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,20 +33,29 @@ public class MainActivity extends AppCompatActivity {
 
         final MainPageAdapter pageAdapter = new MainPageAdapter(this.getSupportFragmentManager());
         this.setupAdapter(pageAdapter);
-        viewPager = (ViewPager) this.findViewById(R.id.mainPager);
-        viewPager.setAdapter(pageAdapter);
+        mViewPager = (ViewPager) this.findViewById(R.id.mainPager);
+        mViewPager.setAdapter(pageAdapter);
 
-        tabLayout = (TabLayout) this.findViewById(R.id.mainToolBar);
-        // tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setupWithViewPager(viewPager);
+        setupTabLayoutParams();
     }
 
     private void setupAdapter(MainPageAdapter pageAdapter) {
-        pageAdapter.addFragment(HomeFragment.newInstance(), "HOME");
-        pageAdapter.addFragment(HomeFragment.newInstance(), "BUSCADOS");
-        pageAdapter.addFragment(HomeFragment.newInstance(), "ENCONTRADOS");
-        pageAdapter.addFragment(HomeFragment.newInstance(), "PERFIL");
+        //FIXME change fragment
+        pageAdapter.addFragment(HomeFragment.newInstance(), null);
+        pageAdapter.addFragment(LostListFragment.newInstance(), null);
+        pageAdapter.addFragment(FoundListFragment.newInstance(), null);
+        pageAdapter.addFragment(MyAccountOptionsFragment.newInstance(), null);
     }
 
+
+    private void setupTabLayoutParams(){
+        mTabLayout = (TabLayout) this.findViewById(R.id.mainToolBar);
+        // mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.getTabAt(POSITION_TAB_HOME).setIcon(R.drawable.ic_home_black_24dp);
+        mTabLayout.getTabAt(POSITION_TAB_LOST).setIcon(R.drawable.ic_lost_black_24dp);
+        mTabLayout.getTabAt(POSITION_TAB_FOUND).setIcon(R.drawable.ic_found_black_24dp);
+        mTabLayout.getTabAt(POSITION_TAB_ACCOUNT).setIcon(R.drawable.ic_account_black_24dp);
+    }
 
 }
