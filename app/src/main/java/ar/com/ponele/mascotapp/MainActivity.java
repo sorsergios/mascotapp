@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout = (TabLayout) this.findViewById(R.id.mainToolBar);
         // mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.getTabAt(POSITION_TAB_HOME).setIcon(R.drawable.ic_home_black_24dp);
-        mTabLayout.getTabAt(POSITION_TAB_LOST).setIcon(R.drawable.ic_lost_black_24dp);
-        mTabLayout.getTabAt(POSITION_TAB_FOUND).setIcon(R.drawable.ic_found_black_24dp);
-        mTabLayout.getTabAt(POSITION_TAB_ACCOUNT).setIcon(R.drawable.ic_account_black_24dp);
+        mTabLayout.getTabAt(POSITION_TAB_HOME).setIcon(R.drawable.ic_home_white_24dp);
+        mTabLayout.getTabAt(POSITION_TAB_LOST).setIcon(R.drawable.ic_lost_white_24dp);
+        mTabLayout.getTabAt(POSITION_TAB_FOUND).setIcon(R.drawable.ic_found_white_24dp);
+        mTabLayout.getTabAt(POSITION_TAB_ACCOUNT).setIcon(R.drawable.ic_account_white_24dp);
     }
 
 }
